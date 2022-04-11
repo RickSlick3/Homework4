@@ -6,11 +6,10 @@ using namespace std;
 
 
 int main(void) {
-	table tabley;
+	table tabley = table(500);
 	Treey<int, int>* treey = new Treey<int, int>();
-	int randMax = 100; // the highest value that can be input into the data structures
+	int randMax = 150; // the highest value that can be input into the data structures
 	int tableC = 0; // comparison count for tabley
-	int treeC = 0; // comparison count for treey
 
 	int numArr[100] = { 0 };
 	for (int i = 0; i < 100; i++) {
@@ -19,7 +18,7 @@ int main(void) {
 			numArr[i] = num;
 		}
 		else {
-			num--;
+			i--;
 		}
 	}
 
@@ -32,7 +31,7 @@ int main(void) {
 	}	
 
 	std::cout << "Tabley has made " << tableC << " comparisons.\n";
-	std::cout << "Treey has made " << treeC << " comparisons.\n\n";
+	std::cout << "Treey has made " << treey->counter << " comparisons.\n\n";
 	std::cout << "Removing multiples of 7 from the structures: \n\n";
 
 	int i = 7;
@@ -44,7 +43,7 @@ int main(void) {
 	}
 
 	std::cout << "Tabley has made " << tableC << " comparisons.\n";
-	std::cout << "Treey has made " << treeC << " comparisons.\n\n";
+	std::cout << "Treey has made " << treey->counter << " comparisons.\n\n";
 	std::cout << "Filling the structures with values again: \n\n";
 
 	for (int i = 50; i <= 99; i++) {
@@ -54,7 +53,7 @@ int main(void) {
 	}
 
 	std::cout << "Tabley has made " << tableC << " comparisons.\n";
-	std::cout << "Treey has made " << treeC << " comparisons.\n\n";
+	std::cout << "Treey has made " << treey->counter << " comparisons.\n\n";
 	std::cout << "Removing multiples of 9 from the structures: \n\n";
 
 	i = 9;
@@ -66,6 +65,6 @@ int main(void) {
 	}
 
 	std::cout << "Tabley has made " << tableC << " comparisons.\n";
-	std::cout << "Treey has made " << treeC << " comparisons.\n\n";
+	std::cout << "Treey has made " << treey->counter << " comparisons.\n\n";
 
 }

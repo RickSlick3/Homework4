@@ -48,6 +48,9 @@ private:
     void rotateRL(Nodey<T1, T2>* pivot, Nodey<T1, T2>* p, Nodey<T1, T2>* gp, Nodey<T1, T2>* ggp);
 
 public:
+    // counter to count comparisons while adding, removing, or finding.
+    int counter = 0;
+
     /// <summary>
     /// Empty constructor.
     /// </summary>
@@ -129,6 +132,7 @@ inline void Treey<T1, T2>::insert(T1 key, T2 data)
     Nodey<T1, T2>* current = this->root;
     if (!current) {
         this->root = new Nodey<T1, T2>(key, data);
+        counter++;
         return;
     }
 
@@ -137,17 +141,23 @@ inline void Treey<T1, T2>::insert(T1 key, T2 data)
             throw "Duplicate key error";
 
         if (key < current->getKey()) {
-            if (current->left)
+            if (current->left) {
                 current = current->left;
+                counter++;
+            }
             else {
+                counter++;
                 current->left = new Nodey<T1, T2>(key, data, nullptr, nullptr);
                 break;
             }
         }
         else {
-            if (current->right)
+            if (current->right) {
                 current = current->right;
+                counter++;
+            }
             else {
+                counter++;
                 current->right = new Nodey<T1, T2>(key, data, nullptr, nullptr);
                 break;
             }
@@ -203,12 +213,14 @@ inline T2 Treey<T1, T2>::remove(T1 key, Nodey<T1, T2>* root, Nodey<T1, T2>* pare
 
     if (key < root->getKey()) {
         if (!root->left)
-            throw "The key does not exist";
+            return 0;
+            //throw "The key does not exist";
         return remove(key, root->left, root);
     }
     else {
         if (!root->right)
-            throw "The key does not exist";
+            return 0;
+            //throw "The key does not exist";
         return remove(key, root->right, root);
     }
 }

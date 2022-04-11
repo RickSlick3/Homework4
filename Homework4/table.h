@@ -10,7 +10,7 @@ private:
 	int numItems;
 
 public: 
-	table(int size = 500);
+	table(int num);
 	~table();
 	int hash(int input);
 	int insert(int input);
@@ -26,6 +26,8 @@ public:
 inline table::table(int num)
 {
 	arr = new int[num];
+	for (int i = 0; i < num; i++)
+		arr[i] = 0;
 	size = num;
 	numItems = 0;
 
