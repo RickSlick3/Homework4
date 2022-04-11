@@ -26,8 +26,6 @@ public:
 inline table::table(int num)
 {
 	arr = new int[num];
-	for (int i = 0; i < num; i++)
-		arr[i] = 0;
 	size = num;
 	numItems = 0;
 

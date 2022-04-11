@@ -165,7 +165,6 @@
     </ClCompile>
     <ClCompile Include="TableTests.cpp" />
     <ClCompile Include="TreeyTests.cpp" />
-    <ClCompile Include="Unit testing.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
