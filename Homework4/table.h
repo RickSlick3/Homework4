@@ -28,6 +28,9 @@ inline table::table(int num)
 	arr = new int[num];
 	size = num;
 	numItems = 0;
+
+	for (int i = 0; i < num; i++)
+		this->arr[i] = INT_MIN;
 }
 
 inline table::~table()
@@ -43,18 +46,19 @@ inline int table::hash(int input)
 inline int table::insert(int input)
 {
 	int index = hash(input);
-	if (numItems == size)
-		return 0;
-	if (arr[index] == NULL) {
+	if (arr[index] == INT_MIN) {
 		arr[index] = input;
+		this->numItems++;
 		return 1;
 	}
 	int count = 1;
-	while (arr[index] != NULL) {
+	while (arr[index] != INT_MIN) {
+		int f = arr[index];
 		index = (index + 1)%size;
 		count++;
 	}
 	arr[index] = input;
+	this->numItems++;
 	return count;
 }
 
@@ -76,7 +80,8 @@ inline int table::remove(int input)
 {
 	int index = hash(input);
 	if (arr[index] == input) {
-		arr[index] = NULL;
+		arr[index] = INT_MIN;
+		this->numItems--;
 		return 1;
 	}
 	int count = 1;
@@ -84,8 +89,10 @@ inline int table::remove(int input)
 		index = (index + 1)%size;
 		count++;
 	}
-	if (index < size)
-		arr[index] = NULL;
+	if (index < size) {
+		arr[index] = INT_MIN;
+		this->numItems--;
+	}
 	return count;
 }
 
@@ -93,7 +100,7 @@ inline void table::printTable()
 {
 
 	for (int x = 0; x < size; x++) {
-		if (arr[x] == NULL)
+		if (arr[x] == INT_MIN)
 			std::cout << " E ";
 		else std::cout << " " << arr[x] << " ";
 	}
