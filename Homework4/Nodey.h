@@ -38,6 +38,12 @@ public:
 	T1 getKey() { return this->key; }
 
 	/// <summary>
+	/// Gets the nodes lookup key.
+	/// </summary>
+	/// <returns>The lookup key.</returns>
+	void setKey(T1 key) { this->key = key; }
+
+	/// <summary>
 	/// Gets the nodes data.
 	/// </summary>
 	/// <returns>The data.</returns>

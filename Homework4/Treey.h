@@ -7,7 +7,7 @@ class Treey
 private:
     Nodey<T1, T2>* root = nullptr;
 
-    Nodey<T1, T2>* minValueKey(Nodey<T1, T2>* root);
+    Nodey<T1, T2>* parentOfMin(Nodey<T1, T2>* root);
 
     int avlHeight(Nodey<T1, T2>* root);
     bool balanceTree(Nodey<T1, T2>* root, Nodey<T1, T2>* p);
@@ -188,11 +188,12 @@ inline T2 Treey<T1, T2>::remove(T1 key, Nodey<T1, T2>* root, Nodey<T1, T2>* pare
         }
         else { // Both child case
             // Find min child on the right and replace with 
-            Nodey<T1, T2>* min = minValueKey(root->right);
-            root->key = min->getKey();
-            root->data = min->getData();
+            Nodey<T1, T2>* minParent = parentOfMin(root->right);
+            Nodey<T1, T2>* min = minParent->left;
+            root->setKey(min->getKey());
+            root->setData(min->getData());
+            minParent->left = min->right;
             delete min;
-            min->parent->left = min->right;
         }
 
         this->updateBalanceFactors(this->root);
@@ -214,10 +215,10 @@ inline T2 Treey<T1, T2>::remove(T1 key, Nodey<T1, T2>* root, Nodey<T1, T2>* pare
 }
 
 template<class T1, class T2>
-inline Nodey<T1, T2>* Treey<T1, T2>::minValueKey(Nodey<T1, T2>* root)
+inline Nodey<T1, T2>* Treey<T1, T2>::parentOfMin(Nodey<T1, T2>* root)
 {
     // Minimum key must not have a left child to be minimum
-    while (root->left)
+    while (root->left->left)
         root = root->left;
 
     return root;
