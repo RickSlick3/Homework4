@@ -3,14 +3,6 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-namespace Unittests
+namespace UnitTests
 {
-	TEST_CLASS(Unittests)
-	{
-	public:
-		
-		TEST_METHOD()
-		{
-		}
-	};
 }

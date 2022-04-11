@@ -163,13 +163,12 @@ inline T2 Treey<T1, T2>::remove(T1 key, Nodey<T1, T2>* root, Nodey<T1, T2>* pare
 {
     if (root == nullptr && this->root)
         return this->remove(key, this->root, nullptr);
-    else
+    else if (!this->root)
         throw "The tree is empty";
 
     if (key == root->getKey()) {
         T2 data = root->getData();
 
-        // Assumes root is not this->root
         if (!root->left) { // Right child case or no child
             if (parent->left == root)
                 parent->left = root->right;
