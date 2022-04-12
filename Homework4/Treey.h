@@ -176,6 +176,7 @@ inline T2 Treey<T1, T2>::remove(T1 key, Nodey<T1, T2>* root, Nodey<T1, T2>* pare
     else if (!this->root)
         throw "The tree is empty";
 
+    counter++;
     if (key == root->getKey()) {
         T2 data = root->getData();
 
@@ -198,11 +199,13 @@ inline T2 Treey<T1, T2>::remove(T1 key, Nodey<T1, T2>* root, Nodey<T1, T2>* pare
         else { // Both child case
             // Find min child on the right and replace with 
             Nodey<T1, T2>* minParent = parentOfMin(root->right);
-            Nodey<T1, T2>* min = minParent->left;
-            root->setKey(min->getKey());
-            root->setData(min->getData());
-            minParent->left = min->right;
-            delete min;
+            if (minParent->left) {
+                Nodey<T1, T2>* min = minParent->left;
+                root->setKey(min->getKey());
+                root->setData(min->getData());
+                minParent->left = min->right;
+                delete min;
+            }
         }
 
         this->updateBalanceFactors(this->root);
@@ -211,6 +214,7 @@ inline T2 Treey<T1, T2>::remove(T1 key, Nodey<T1, T2>* root, Nodey<T1, T2>* pare
         return data;
     }
 
+    counter++;
     if (key < root->getKey()) {
         if (!root->left)
             return 0;
@@ -229,9 +233,10 @@ template<class T1, class T2>
 inline Nodey<T1, T2>* Treey<T1, T2>::parentOfMin(Nodey<T1, T2>* root)
 {
     // Minimum key must not have a left child to be minimum
-    while (root->left->left)
-        root = root->left;
-
+    if (root->left) {
+        while (root->left->left)
+            root = root->left;
+    }
     return root;
 }
 
@@ -244,9 +249,12 @@ inline T2* Treey<T1, T2>::find(T1 key, Nodey<T1, T2>* root)
     if (!root)
         return this->find(key, this->root);
 
-    if (root->getKey() == key)
+    counter++;
+    if (root->getKey() == key) {
         return root->getDataAddr();
+    }
 
+    counter++;
     if (key < root->getKey()) {
         if (!root->left)
             return nullptr;
