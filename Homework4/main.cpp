@@ -8,7 +8,7 @@ using namespace std;
 int main(void) {
 	table tabley = table(500);
 	Treey<int, int>* treey = new Treey<int, int>();
-	int randMax = 100; // the highest rand value that can be input into the data structures
+	int randMax = 500; // the highest rand value that can be input into the data structures
 	int tableC = 0; // comparison count for tabley
 
 	// making an array of 100 random, unique numbers
@@ -55,7 +55,7 @@ int main(void) {
 
 	std::cout << "Tabley has made " << tableC << " comparisons.\n";
 	std::cout << "Treey has made " << treey->counter << " comparisons.\n\n";
-	std::cout << "Removing multiples of 9 from the structures: \n\n";
+	std::cout << "Finding multiples of 9 from the structures: \n\n";
 
 	// finding multiples of 9
 	i = 0;
